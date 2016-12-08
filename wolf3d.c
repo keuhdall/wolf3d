@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 16:42:26 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/07 17:10:10 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/08 15:34:12 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,19 @@ void	ft_print_tab(t_point *tab, int len)
 	while (count < len)
 	{
 		printf("x = %d; y = %d; id = %d\n", tab[count].x, tab[count].y, tab[count].id);
+		count++;
+	}
+}
+
+void	ft_search_id(t_point *tab, int len, int id)
+{
+	int	count;
+
+	count = 0;
+	while (count < len)
+	{
+		if (tab[count].id == id)
+			printf("x = %d; y = %d; id = %d\n", tab[count].x, tab[count].y, tab[count].id);
 		count++;
 	}
 }
@@ -44,7 +57,7 @@ int		main(int argc, char *argv[])
 		ft_putendl("error");
 		return (-1);
 	}
-	printf("len = %d\n", len);
-	ft_print_tab(tab, len);
+	//ft_print_tab(tab, len);
+	ft_search_id(tab, len, -1);
 	return (0);
 }
