@@ -6,12 +6,22 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 16:42:26 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/08 15:34:12 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/09 17:28:54 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 #include <stdio.h>
+
+int		ft_get_len(t_point *tab)
+{
+	int	count;
+
+	count = 0;
+	while (tab[count].y == 0)
+		count++;
+	return (count);
+}
 
 void	ft_print_tab(t_point *tab, int len)
 {
