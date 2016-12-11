@@ -6,16 +6,20 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:19:41 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/10 14:48:26 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/11 23:22:29 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLF3D_H
 # define WOLF3D_H
 
+# include <stdio.h> // ATTENTION !!
 # include "./minilibx/mlx.h"
 # include "./libft/libft.h"
 # include "./libft/get_next_line.h"
+
+# define W_WIDTH 800
+# define W_HEIGHT 600
 
 typedef struct	s_point
 {
@@ -23,6 +27,12 @@ typedef struct	s_point
 	int			y;
 	int			id;
 }				t_point;
+
+typedef struct	s_dpoint
+{
+	double		x;
+	double		y;
+}				t_dpoint;
 
 typedef struct	s_meta
 {
@@ -40,25 +50,20 @@ typedef struct	s_camera
 
 typedef struct	s_player
 {
-	double		pos_x;
-	double		pos_y;
-	int			map_pos_x;
-	int			map_pos_y;
-	char		collide;
-	char		collide_side;
-	double		ray_x; // rayPosX
-	double		ray_y; // rayPosY
-	double		look_x; // DirX
-	double		look_y; // DirY
-	int			look_x_sign;
-	int			look_y_sign;
-	double		dist_side_x; // Length between the player and the first edge of a map square (x axis)
-	double		dist_side_y; // Same but for y axis
-	double		diff_side_x; // Next length between 2 x axis
-	double		diff_side_y; // Next length between 2 y axis
+	t_point		*tab;
+	t_camera	c;
+	t_dpoint	pos;
+	t_point		map_pos;
+	t_dpoint	ray; //rayPos
+	t_dpoint	look; //Dir
+	t_point		look_sign;
+	t_dpoint	dist_side; // Length between the player and the first edge of a map square
+	t_dpoint	diff_side; // Next length between 2 axis
 	double		ray_len; // Length of a ray (between player and a wall)
 	int			line_start; // Start point of line (y axis)
 	int			line_end; // End point of line (y axis)
+	char		collide;
+	char		collide_side;
 }				t_player;
 
 typedef struct	s_wrapper
@@ -70,5 +75,6 @@ typedef struct	s_wrapper
 }				t_wrapper;
 
 t_point			*ft_init_tab(char *name, int *err, int *len);
+t_dpoint		ft_search_id(t_point *tab, int len, int id);
 
 #endif
