@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/12 17:12:43 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/12 21:06:33 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,34 @@ t_dpoint	ft_search_id(t_point *tab, int len, int id)
 	return (ret);
 }
 
+void		ft_trace_vline(int x, int y1, int y2, t_player *p)
+{
+	t_point	tab[2];
+	int		err;
+	int		e2;
+
+	tab[0].x = 0;
+	tab[0].y = abs(y2 - y1);
+	tab[1].x = -1;
+	tab[1].y = y1 < y2 ? 1 : -1;
+	err = (tab[0].x > tab[0].y ? tab[0].x : tab[0].y) / 2;
+	while (1)
+	{
+		p->mlx.data[y1 * W_WIDTH + x] = p->color;
+		if (y1 == y2)
+			break ;
+		e2 = err;
+		if (e2 > -tab[0].x)
+				err -= tab[0].y;
+		if (e2 > -tab[0].x)
+				x += tab[1].x;
+		if (e2 < tab[0].y)
+				err += tab[0].x;
+		if (e2 < tab[0].y)
+				y1 += tab[1].y;
+	}
+}
+
 void		ft_init_struct(t_player *p, t_point *tab, int tab_len)
 {
 	p->mlx.ptr = mlx_init();
@@ -52,12 +80,66 @@ void		ft_init_struct(t_player *p, t_point *tab, int tab_len)
 	p->mlx.data = (int *)mlx_get_data_addr(p->mlx.img, &p->mlx.bpp,
 		&p->mlx.size_line, &p->mlx.endian);
 	p->pos = ft_search_id(tab, tab_len, -1);
+	p->tab = tab;
 	p->p_dir.x = -1;
 	p->p_dir.y = 0;
 	p->c.screen.x = 0;
 	p->c.screen.y = 0.66;
 	p->collide = 'n';
 	p->collide_side = 'n';
+}
+
+void		ft_check_collide(t_player *p)
+{
+	while (p->collide == 'n')
+	{
+		if (p->dist_side.x < p->dist_side.y)
+		{
+			p->dist_side.x += p->diff_side.x;
+			p->map_pos.x += p->p_dir_sign.x;
+			p->collide = 'n';
+		}
+		else
+		{
+			p->dist_side.y += p->diff_side.y;
+			p->map_pos.y += p->p_dir_sign.y;
+			p->collide = 'y';
+		}
+		if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id != 0)
+			p->collide = 'y';
+	}
+}
+
+void		ft_calc_dist_side(t_player *p)
+{
+	if (p->ray_dir.x < 0)
+	{
+		p->p_dir_sign.x = -1;
+		p->p_dir_sign.y = -1;
+		p->dist_side.x = (p->ray_pos.x - p->map_pos.x) * p->diff_side.x;
+		p->dist_side.y = (p->ray_pos.y - p->map_pos.y) * p->diff_side.y;
+	}
+	else
+	{
+		p->p_dir_sign.x = 1;
+		p->p_dir_sign.y = 1;
+		p->dist_side.x = (p->map_pos.x + 1.0 - p->ray_pos.x) * p->diff_side.x;
+		p->dist_side.y = (p->map_pos.y + 1.0 - p->ray_pos.y) * p->diff_side.y;
+	}
+}
+
+void		ft_set_color(t_player *p)
+{
+	if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 1)
+		p->color = 0x00FF00;
+	else if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 1)
+		p->color = 0xFF0000;
+	else if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 1)
+		p->color = 0x0000FF;
+	else
+		p->color = 0;
+	if (p->collide_side == 'y')
+		p->color /= 2;
 }
 
 void		ft_reset_values(t_player *p, int count)
@@ -76,11 +158,27 @@ void		ft_reset_values(t_player *p, int count)
 void		ft_draw(t_player *p)
 {
 	int	count;
+	int	start;
+	int	end;
 
 	count = 0;
 	while (count < W_WIDTH)
 	{
 		ft_reset_values(p, count);
+		ft_calc_dist_side(p);
+		ft_check_collide(p);
+		if (p->collide == 'n')
+			p->ray_len = (p->map_pos.x - p->ray_pos.x +
+				(1 - p->p_dir_sign.x) / 2) / p->ray_dir.x;
+		else
+			p->ray_len = (p->map_pos.y - p->ray_pos.y +
+				(1 - p->p_dir_sign.y) / 2) / p->ray_dir.y;
+		start = -(W_HEIGHT / p->ray_len) / 2 + W_HEIGHT / 2;
+		start = start < 0 ? 0 : start;
+		end = (W_HEIGHT / p->ray_len) / 2 + W_HEIGHT / 2;
+		end = end >= W_HEIGHT ? W_HEIGHT - 1 : end;
+		ft_set_color(p);
+		ft_trace_vline(count, start, end, p);
 		count++;
 	}
 }

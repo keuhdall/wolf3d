@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:19:41 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/12 16:36:29 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/12 20:22:00 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,11 @@ typedef struct	s_player
 	int			line_end; // End point of line (y axis)
 	char		collide;
 	char		collide_side;
+	int			color;
 }				t_player;
 
+void			ft_init_struct(t_player *p, t_point *tab, int tab_len);
+void			ft_draw(t_player *p);
 t_point			*ft_init_tab(char *name, int *err, int *len);
 t_dpoint		ft_search_id(t_point *tab, int len, int id);
 
