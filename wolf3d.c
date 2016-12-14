@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 16:42:26 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/12 20:25:57 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/14 20:13:37 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		main(int argc, char *argv[])
 		return (-1);
 	}
 	ft_init_struct(&p, tab, len);
+	mlx_key_hook(p.mlx.win, &ft_manage_keyboard, &p);
 	ft_draw(&p);
 	mlx_put_image_to_window(p.mlx.ptr, p.mlx.win, p.mlx.img, 0, 0);
 	mlx_loop(p.mlx.ptr);

@@ -15,6 +15,7 @@ NAME = wolf3d
 SRC = wolf3d.c \
 	  reader.c \
 	  tools.c \
+	  controls.c \
 
 OBJ = $(SRC:.c=.o)
 
