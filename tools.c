@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/14 18:02:44 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/14 18:17:53 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ void		ft_trace_vline(int x, int y1, int y2, t_player *p)
 			break ;
 		e2 = err;
 		if (e2 > -tab[0].x)
-				err -= tab[0].y;
+			err -= tab[0].y;
 		if (e2 > -tab[0].x)
-				x += tab[1].x;
+			x += tab[1].x;
 		if (e2 < tab[0].y)
-				err += tab[0].x;
+			err += tab[0].x;
 		if (e2 < tab[0].y)
-				y1 += tab[1].y;
+			y1 += tab[1].y;
 	}
 }
 
