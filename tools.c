@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/12 21:06:33 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/14 18:02:44 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void		ft_init_struct(t_player *p, t_point *tab, int tab_len)
 	p->mlx.data = (int *)mlx_get_data_addr(p->mlx.img, &p->mlx.bpp,
 		&p->mlx.size_line, &p->mlx.endian);
 	p->pos = ft_search_id(tab, tab_len, -1);
+	tab_len++;
 	p->tab = tab;
 	p->p_dir.x = -1;
 	p->p_dir.y = 0;
@@ -97,15 +98,15 @@ void		ft_check_collide(t_player *p)
 		{
 			p->dist_side.x += p->diff_side.x;
 			p->map_pos.x += p->p_dir_sign.x;
-			p->collide = 'n';
+			p->collide_side = 'n';
 		}
 		else
 		{
 			p->dist_side.y += p->diff_side.y;
 			p->map_pos.y += p->p_dir_sign.y;
-			p->collide = 'y';
+			p->collide_side = 'y';
 		}
-		if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id != 0)
+		if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id > 0)
 			p->collide = 'y';
 	}
 }
@@ -115,15 +116,21 @@ void		ft_calc_dist_side(t_player *p)
 	if (p->ray_dir.x < 0)
 	{
 		p->p_dir_sign.x = -1;
-		p->p_dir_sign.y = -1;
 		p->dist_side.x = (p->ray_pos.x - p->map_pos.x) * p->diff_side.x;
-		p->dist_side.y = (p->ray_pos.y - p->map_pos.y) * p->diff_side.y;
 	}
 	else
 	{
 		p->p_dir_sign.x = 1;
-		p->p_dir_sign.y = 1;
 		p->dist_side.x = (p->map_pos.x + 1.0 - p->ray_pos.x) * p->diff_side.x;
+	}
+	if (p->ray_dir.y < 0)
+	{
+		p->p_dir_sign.y = -1;
+		p->dist_side.y = (p->ray_pos.y - p->map_pos.y) * p->diff_side.y;
+	}
+	else
+	{
+		p->p_dir_sign.y = 1;
 		p->dist_side.y = (p->map_pos.y + 1.0 - p->ray_pos.y) * p->diff_side.y;
 	}
 }
@@ -132,9 +139,9 @@ void		ft_set_color(t_player *p)
 {
 	if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 1)
 		p->color = 0x00FF00;
-	else if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 1)
+	else if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 2)
 		p->color = 0xFF0000;
-	else if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 1)
+	else if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 3)
 		p->color = 0x0000FF;
 	else
 		p->color = 0;
@@ -167,7 +174,7 @@ void		ft_draw(t_player *p)
 		ft_reset_values(p, count);
 		ft_calc_dist_side(p);
 		ft_check_collide(p);
-		if (p->collide == 'n')
+		if (p->collide_side == 'n')
 			p->ray_len = (p->map_pos.x - p->ray_pos.x +
 				(1 - p->p_dir_sign.x) / 2) / p->ray_dir.x;
 		else
