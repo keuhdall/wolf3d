@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/14 18:17:53 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/14 21:19:42 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,18 @@ void		ft_reset_values(t_player *p, int count)
 	p->diff_side.x = sqrt(1 + pow(p->ray_dir.y, 2) / pow(p->ray_dir.x, 2));
 	p->diff_side.y = sqrt(1 + pow(p->ray_dir.x, 2) / pow(p->ray_dir.y, 2));
 	p->collide = 'n';
+}
+
+void		ft_reset_map(t_player *p)
+{
+	int	count;
+
+	count = 0;
+	while (count < 800 * 600)
+	{
+		p->mlx.data[count] = 0;
+		count++;
+	}
 }
 
 void		ft_draw(t_player *p)
