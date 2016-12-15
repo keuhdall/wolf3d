@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/15 01:35:24 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/15 06:07:47 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_dpoint	ft_search_id(t_point *tab, int len, int id)
 	{
 		if (tab[count].id == id)
 		{
-			ret.x = (double)tab[count].x;
-			ret.y = (double)tab[count].y;
+			ret.x = (double)tab[count].x + 1;
+			ret.y = (double)tab[count].y + 1;
 			return (ret);
 		}
 		count++;
@@ -153,7 +153,7 @@ void		ft_set_color(t_player *p)
 
 void		ft_reset_values(t_player *p, int count)
 {
-	p->c.pos_x = 2 * count / W_WIDTH - 1;
+	p->c.pos_x = 2 * count / (double)W_WIDTH - 1;
 	p->ray_pos = p->pos;
 	p->ray_dir.x = p->p_dir.x + p->c.screen.x * p->c.pos_x;
 	p->ray_dir.y = p->p_dir.y + p->c.screen.y * p->c.pos_x;
