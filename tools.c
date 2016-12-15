@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/14 21:19:42 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/15 01:35:24 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,13 +138,15 @@ void		ft_calc_dist_side(t_player *p)
 void		ft_set_color(t_player *p)
 {
 	if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 1)
-		p->color = 0x00FF00;
-	else if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 2)
 		p->color = 0xFF0000;
+	else if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 2)
+		p->color = 0x00FF00;
 	else if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 3)
 		p->color = 0x0000FF;
+	else if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 4)
+		p->color = 0xFFFFFF;
 	else
-		p->color = 0;
+		p->color = 0xFFFF00;
 	if (p->collide_side == 'y')
 		p->color /= 2;
 }
