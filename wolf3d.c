@@ -6,23 +6,11 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 16:42:26 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/14 20:13:37 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/15 18:29:59 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
-
-void	ft_print_tab(t_point *tab, int len)
-{
-	int	count;
-
-	count = 0;
-	while (count < len)
-	{
-		printf("x = %d; y = %d; id = %d\n", tab[count].x, tab[count].y, tab[count].id);
-		count++;
-	}
-}
 
 int		main(int argc, char *argv[])
 {

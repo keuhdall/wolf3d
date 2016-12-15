@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 19:36:05 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/15 18:24:45 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/15 18:29:24 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 void	ft_rotate(int keycode, t_player *p)
 {
-	double	oldDirX;
-	double	oldPlaneX;
+	double	old_dir_x;
+	double	old_screen_x;
 
-	oldDirX = p->p_dir.x;
-	oldPlaneX = p->c.screen.x;
+	old_dir_x = p->p_dir.x;
+	old_screen_x = p->c.screen.x;
 	if (keycode == 124)
 	{
 		p->p_dir.x = p->p_dir.x * cos(-0.1) - p->p_dir.y * sin(-0.1);
-		p->p_dir.y = oldDirX * sin(-0.1) + p->p_dir.y * cos(-0.1);
+		p->p_dir.y = old_dir_x * sin(-0.1) + p->p_dir.y * cos(-0.1);
 		p->c.screen.x = p->c.screen.x * cos(-0.1) - p->c.screen.y * sin(-0.1);
-		p->c.screen.y = oldPlaneX * sin(-0.1) + p->c.screen.y * cos(-0.1);
+		p->c.screen.y = old_screen_x * sin(-0.1) + p->c.screen.y * cos(-0.1);
 	}
 	if (keycode == 123)
 	{
 		p->p_dir.x = p->p_dir.x * cos(0.1) - p->p_dir.y * sin(0.1);
-		p->p_dir.y = oldDirX * sin(0.1) + p->p_dir.y * cos(0.1);
+		p->p_dir.y = old_dir_x * sin(0.1) + p->p_dir.y * cos(0.1);
 		p->c.screen.x = p->c.screen.x * cos(0.1) - p->c.screen.y * sin(0.1);
-		p->c.screen.y = oldPlaneX * sin(0.1) + p->c.screen.y * cos(0.1);
+		p->c.screen.y = old_screen_x * sin(0.1) + p->c.screen.y * cos(0.1);
 	}
 	mlx_clear_window(p->mlx.ptr, p->mlx.win);
 	ft_clear_image(p);
@@ -65,7 +65,7 @@ void	ft_move(int keycode, t_player *p)
 	mlx_put_image_to_window(p->mlx.ptr, p->mlx.win, p->mlx.img, 0, 0);
 }
 
-int	ft_manage_keyboard(int keycode, t_player *p)
+int		ft_manage_keyboard(int keycode, t_player *p)
 {
 	if (keycode == 53)
 		exit(1);
