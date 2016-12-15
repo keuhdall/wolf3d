@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/15 06:07:47 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/15 16:35:23 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ void		ft_reset_values(t_player *p, int count)
 	p->collide = 'n';
 }
 
-void		ft_reset_map(t_player *p)
+void		ft_clear_image(t_player *p)
 {
 	int	count;
 
