@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 19:36:05 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/15 18:07:20 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/15 18:17:17 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_move(int keycode, t_player *p)
 	}
 	if (keycode == 125)
 	{
-		if (p->tab[p->map_pos.y * ft_get_len(p->tab) +
+		if (p->tab[(int)p->pos.y * ft_get_len(p->tab) +
 			((int)p->pos.x + (int)p->p_dir.x)].id == 0)
 			p->pos.x -= p->p_dir.x;
 		if (p->tab[((int)p->pos.y + (int)p->p_dir.y) *
