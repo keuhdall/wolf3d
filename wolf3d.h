@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:19:41 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/15 18:31:34 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/16 03:58:55 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct	s_player
 	char		collide;
 	char		collide_side;
 	int			color;
+	char		key_pressed;
 }				t_player;
 
 int				ft_get_len(t_point *tab);
@@ -79,6 +80,7 @@ void			ft_init_struct(t_player *p, t_point *tab, int tab_len);
 void			ft_clear_image(t_player *p);
 void			ft_draw(t_player *p);
 int				ft_manage_keyboard(int keycode, t_player *p);
+int				ft_rotate(int x, int y, t_player *p);
 t_point			*ft_init_tab(char *name, int *err, int *len);
 t_dpoint		ft_search_id(t_point *tab, int len, int id);
 

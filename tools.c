@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/15 16:35:23 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/16 03:35:55 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void		ft_init_struct(t_player *p, t_point *tab, int tab_len)
 	p->c.screen.y = 0.66;
 	p->collide = 'n';
 	p->collide_side = 'n';
+	p->key_pressed = 0;
 }
 
 void		ft_check_collide(t_player *p)
