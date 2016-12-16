@@ -6,7 +6,7 @@
 #*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        *#
 #*                                                +#+#+#+#+#+   +#+           *#
 #*   Created: 2016/11/10 23:15:25 by lmarques          #+#    #+#             *#
-#*   Updated: 2016/12/12 20:24:41 by lmarques         ###   ########.fr       *#
+#*   Updated: 2016/12/16 03:59:34 by lmarques         ###   ########.fr       *#
 #*                                                                            *#
 #* ************************************************************************** *#
 
@@ -16,6 +16,7 @@ SRC = wolf3d.c \
 	  reader.c \
 	  tools.c \
 	  controls_keyboard.c \
+	  controls_mouse.c \
 
 OBJ = $(SRC:.c=.o)
 
