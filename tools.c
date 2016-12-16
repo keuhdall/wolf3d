@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/16 03:35:55 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/16 17:35:57 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		ft_trace_vline(int x, int y1, int y2, t_player *p)
 	err = (tab[0].x > tab[0].y ? tab[0].x : tab[0].y) / 2;
 	while (1)
 	{
-		p->mlx.data[y1 * W_WIDTH + x] = p->color;
+		p->mlx.data[y1 * W_WIDTH + 1 + x] = p->color;
 		if (y1 == y2)
 			break ;
 		e2 = err;
