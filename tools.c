@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/17 17:38:45 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/17 21:33:52 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void		ft_init_struct(t_player *p, t_point *tab, int tab_len)
 	p->mlx.data = (int *)mlx_get_data_addr(p->mlx.img, &p->mlx.bpp,
 		&p->mlx.size_line, &p->mlx.endian);
 	p->pos = ft_search_id(tab, tab_len, -1);
-	tab_len++;
+	p->tab_len = ft_get_len(tab);
 	p->tab = tab;
 	p->p_dir.x = -1;
 	p->p_dir.y = 0;
@@ -107,7 +107,7 @@ void		ft_check_collide(t_player *p)
 			p->map_pos.y += p->p_dir_sign.y;
 			p->collide_side = 'y';
 		}
-		if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id > 0)
+		if (p->tab[p->map_pos.y * p->tab_len + p->map_pos.x].id > 0)
 			p->collide = 'y';
 	}
 }
@@ -138,13 +138,13 @@ void		ft_calc_dist_side(t_player *p)
 
 void		ft_set_color(t_player *p)
 {
-	if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 1)
+	if (p->tab[p->map_pos.y * p->tab_len + p->map_pos.x].id == 1)
 		p->color = 0xFF0000;
-	else if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 2)
+	else if (p->tab[p->map_pos.y * p->tab_len + p->map_pos.x].id == 2)
 		p->color = 0x00FF00;
-	else if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 3)
+	else if (p->tab[p->map_pos.y * p->tab_len + p->map_pos.x].id == 3)
 		p->color = 0x0000FF;
-	else if (p->tab[p->map_pos.y * ft_get_len(p->tab) + p->map_pos.x].id == 4)
+	else if (p->tab[p->map_pos.y * p->tab_len + p->map_pos.x].id == 4)
 		p->color = 0xFFFFFF;
 	else
 		p->color = 0xFFFF00;
@@ -179,6 +179,7 @@ void		ft_clear_image(t_player *p)
 
 void		ft_handle_movement(t_player *p)
 {
+	//printf("key = %d\n", p->key_pressed);
 	if (p->key_pressed == 53)
 		exit(1);
 	ft_move(p->key_pressed, p);
