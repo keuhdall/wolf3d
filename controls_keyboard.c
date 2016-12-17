@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 19:36:05 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/16 03:58:17 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/17 17:37:11 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,51 +17,43 @@ void	ft_move(int keycode, t_player *p)
 	if (keycode == 13)
 	{
 		if (p->tab[(int)p->pos.y * ft_get_len(p->tab) +
-			((int)p->pos.x + (int)p->p_dir.x)].id == 0)
-			p->pos.x += p->p_dir.x;
-		if (p->tab[((int)p->pos.y + (int)p->p_dir.y) *
+			((int)p->pos.x + (int)p->p_dir.x) / 20].id == 0)
+			p->pos.x += p->p_dir.x / 20;
+		if (p->tab[((int)p->pos.y + (int)p->p_dir.y / 20) *
 			ft_get_len(p->tab) + (int)p->pos.x].id == 0)
-			p->pos.y += p->p_dir.y;
+			p->pos.y += p->p_dir.y / 20;
 	}
 	if (keycode == 1)
 	{
 		if (p->tab[(int)p->pos.y * ft_get_len(p->tab) +
-			((int)p->pos.x + (int)p->p_dir.x)].id == 0)
-			p->pos.x -= p->p_dir.x;
-		if (p->tab[((int)p->pos.y + (int)p->p_dir.y) *
+			((int)p->pos.x + (int)p->p_dir.x) / 20].id == 0)
+			p->pos.x -= p->p_dir.x / 20;
+		if (p->tab[((int)p->pos.y + (int)p->p_dir.y / 20) *
 			ft_get_len(p->tab) + (int)p->pos.x].id == 0)
-			p->pos.y -= p->p_dir.y;
+			p->pos.y -= p->p_dir.y / 20;
 	}
-	mlx_clear_window(p->mlx.ptr, p->mlx.win);
-	ft_clear_image(p);
-	ft_draw(p);
-	mlx_put_image_to_window(p->mlx.ptr, p->mlx.win, p->mlx.img, 0, 0);
 }
 
 void	ft_strafe(int keycode, t_player *p)
 {
 	if (keycode == 0)
 	{
-		if (p->tab[((int)p->pos.y + (int)p->p_dir.x) *
-			ft_get_len(p->tab) + (int)p->pos.x].id == 0)
+		if (p->tab[((int)p->pos.y + (int)p->p_dir.x / 20) *
+			ft_get_len(p->tab) + (int)p->pos.x / 20].id == 0)
 		{
-			p->pos.x -= p->p_dir.y;
-			p->pos.y += p->p_dir.x;
+			p->pos.x -= p->p_dir.y / 20;
+			p->pos.y += p->p_dir.x / 20;
 		}
 	}
 	if (keycode == 2)
 	{
-		if (p->tab[((int)p->pos.y + (int)p->p_dir.x) *
-			ft_get_len(p->tab) + (int)p->pos.x].id == 0)
+		if (p->tab[((int)p->pos.y + (int)p->p_dir.x / 20) *
+			ft_get_len(p->tab) + (int)p->pos.x / 20].id == 0)
 		{
-			p->pos.x += p->p_dir.y;
-			p->pos.y -= p->p_dir.x;
+			p->pos.x += p->p_dir.y / 20;
+			p->pos.y -= p->p_dir.x / 20;
 		}
 	}
-	mlx_clear_window(p->mlx.ptr, p->mlx.win);
-	ft_clear_image(p);
-	ft_draw(p);
-	mlx_put_image_to_window(p->mlx.ptr, p->mlx.win, p->mlx.img, 0, 0);
 }
 
 int		ft_manage_keyboard(int keycode, t_player *p)

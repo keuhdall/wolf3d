@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/16 17:35:57 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/17 17:38:45 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void		ft_init_struct(t_player *p, t_point *tab, int tab_len)
 	p->c.screen.y = 0.66;
 	p->collide = 'n';
 	p->collide_side = 'n';
-	p->key_pressed = 0;
+	p->key_pressed = -1;
 }
 
 void		ft_check_collide(t_player *p)
@@ -177,13 +177,23 @@ void		ft_clear_image(t_player *p)
 	}
 }
 
-void		ft_draw(t_player *p)
+void		ft_handle_movement(t_player *p)
+{
+	if (p->key_pressed == 53)
+		exit(1);
+	ft_move(p->key_pressed, p);
+	ft_strafe(p->key_pressed, p);
+}
+
+int			ft_draw(t_player *p)
 {
 	int	count;
 	int	start;
 	int	end;
 
 	count = 0;
+	ft_clear_image(p);
+	ft_handle_movement(p);
 	while (count < W_WIDTH)
 	{
 		ft_reset_values(p, count);
@@ -203,4 +213,6 @@ void		ft_draw(t_player *p)
 		ft_trace_vline(count, start, end, p);
 		count++;
 	}
+	mlx_put_image_to_window(p->mlx.ptr, p->mlx.win, p->mlx.img, 0, 0);
+	return (0);
 }
