@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 03:54:38 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/16 18:30:14 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/20 16:32:34 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	ft_rotate(int x, int y, t_player *p)
 
 	old_dir_x = p->p_dir.x;
 	old_screen_x = p->c.screen.x;
-	p->p_dir.x =  x > old_x ? p->p_dir.x * cos(-0.1) - p->p_dir.y *
+	p->p_dir.x = x > old_x ? p->p_dir.x * cos(-0.1) - p->p_dir.y *
 	sin(-0.1) : p->p_dir.x * cos(0.1) - p->p_dir.y * sin(0.1);
-	p->p_dir.y = x > old_x ?  old_dir_x * sin(-0.1) + p->p_dir.y *
+	p->p_dir.y = x > old_x ? old_dir_x * sin(-0.1) + p->p_dir.y *
 	cos(-0.1) : old_dir_x * sin(0.1) + p->p_dir.y * cos(0.1);
 	p->c.screen.x = x > old_x ? p->c.screen.x * cos(-0.1) - p->c.screen.y *
 	sin(-0.1) : p->c.screen.x * cos(0.1) - p->c.screen.y * sin(0.1);

@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/17 21:33:52 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/20 16:34:48 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,16 @@ void		ft_reset_values(t_player *p, int count)
 	p->collide = 'n';
 }
 
+void		ft_calc_wall_dist(t_player *p)
+{
+	if (p->collide_side == 'n')
+		p->ray_len = (p->map_pos.x - p->ray_pos.x +
+			(1 - p->p_dir_sign.x) / 2) / p->ray_dir.x;
+	else
+		p->ray_len = (p->map_pos.y - p->ray_pos.y +
+			(1 - p->p_dir_sign.y) / 2) / p->ray_dir.y;
+}
+
 void		ft_clear_image(t_player *p)
 {
 	int	count;
@@ -179,7 +189,6 @@ void		ft_clear_image(t_player *p)
 
 void		ft_handle_movement(t_player *p)
 {
-	//printf("key = %d\n", p->key_pressed);
 	if (p->key_pressed == 53)
 		exit(1);
 	ft_move(p->key_pressed, p);
@@ -200,12 +209,7 @@ int			ft_draw(t_player *p)
 		ft_reset_values(p, count);
 		ft_calc_dist_side(p);
 		ft_check_collide(p);
-		if (p->collide_side == 'n')
-			p->ray_len = (p->map_pos.x - p->ray_pos.x +
-				(1 - p->p_dir_sign.x) / 2) / p->ray_dir.x;
-		else
-			p->ray_len = (p->map_pos.y - p->ray_pos.y +
-				(1 - p->p_dir_sign.y) / 2) / p->ray_dir.y;
+		ft_calc_wall_dist(p);
 		start = -(W_HEIGHT / p->ray_len) / 2 + W_HEIGHT / 2;
 		start = start < 0 ? 0 : start;
 		end = (W_HEIGHT / p->ray_len) / 2 + W_HEIGHT / 2;
