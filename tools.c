@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/20 16:34:48 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/20 18:25:38 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ void		ft_init_struct(t_player *p, t_point *tab, int tab_len)
 	p->mlx.img = mlx_new_image(p->mlx.ptr, 800, 600);
 	p->mlx.data = (int *)mlx_get_data_addr(p->mlx.img, &p->mlx.bpp,
 		&p->mlx.size_line, &p->mlx.endian);
+	p->mlx.texture.tex = mlx_xpm_file_to_image(p->mlx.ptr,
+		"/Users/lmarques/Desktop/medium_lmarques.xpm",
+		&p->mlx.texture.width, &p->mlx.texture.height);
 	p->pos = ft_search_id(tab, tab_len, -1);
 	p->tab_len = ft_get_len(tab);
 	p->tab = tab;

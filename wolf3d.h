@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:19:41 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/17 20:24:36 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/20 18:17:52 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ typedef struct	s_dpoint
 	double		y;
 }				t_dpoint;
 
+typedef struct	s_tex
+{
+	void		*tex;
+	int			*data;
+	int			width;
+	int			height;
+
+}				t_tex;
+
 typedef struct	s_meta
 {
 	void		*ptr;
@@ -44,6 +53,7 @@ typedef struct	s_meta
 	int			bpp;
 	int			size_line;
 	int			endian;
+	t_tex		texture;
 }				t_meta;
 
 typedef struct	s_camera
