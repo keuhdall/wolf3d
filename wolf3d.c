@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 16:42:26 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/20 17:53:30 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/20 19:52:39 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ int		ft_key_released(int keycode, t_player *p)
 {
 	if (p->key_pressed == keycode)
 		p->key_pressed = -1;
+	return (0);
+}
+int		ft_exit(void)
+{
+	exit(1);
 	return (0);
 }
 
@@ -42,6 +47,7 @@ int		main(int argc, char *argv[])
 		return (-1);
 	}
 	ft_init_struct(&p, tab, len);
+	mlx_hook(p.mlx.win, 17, (1L << 17), &ft_exit, 0);
 	mlx_hook(p.mlx.win, 2, (1L << 0), &ft_key_pressed, &p);
 	mlx_hook(p.mlx.win, 3, (1L << 1), &ft_key_released, &p);
 	mlx_hook(p.mlx.win, 6, 64, &ft_rotate, &p);
