@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/20 18:25:38 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/21 05:50:03 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,19 @@ void		ft_trace_vline(int x, int y1, int y2, t_player *p)
 	}
 }
 
+void		ft_load_textures(t_player *p)
+{
+	p->mlx.texture[0].tex = mlx_xpm_file_to_image(p->mlx.ptr,
+		"/Users/lmarques/Desktop/lmarques.xpm",
+		&p->mlx.texture[0].width, &p->mlx.texture[0].height);
+	p->mlx.texture[1].tex = mlx_xpm_file_to_image(p->mlx.ptr,
+		"/Users/lmarques/Desktop/wood.xpm",
+		&p->mlx.texture[1].width, &p->mlx.texture[1].height);
+	p->mlx.texture[2].tex = mlx_xpm_file_to_image(p->mlx.ptr,
+		"/Users/lmarques/Desktop/perfection.xpm",
+		&p->mlx.texture[2].width, &p->mlx.texture[2].height);
+}
+
 void		ft_init_struct(t_player *p, t_point *tab, int tab_len)
 {
 	p->mlx.ptr = mlx_init();
@@ -79,9 +92,7 @@ void		ft_init_struct(t_player *p, t_point *tab, int tab_len)
 	p->mlx.img = mlx_new_image(p->mlx.ptr, 800, 600);
 	p->mlx.data = (int *)mlx_get_data_addr(p->mlx.img, &p->mlx.bpp,
 		&p->mlx.size_line, &p->mlx.endian);
-	p->mlx.texture.tex = mlx_xpm_file_to_image(p->mlx.ptr,
-		"/Users/lmarques/Desktop/medium_lmarques.xpm",
-		&p->mlx.texture.width, &p->mlx.texture.height);
+	ft_load_textures(p);
 	p->pos = ft_search_id(tab, tab_len, -1);
 	p->tab_len = ft_get_len(tab);
 	p->tab = tab;
@@ -198,11 +209,38 @@ void		ft_handle_movement(t_player *p)
 	ft_strafe(p->key_pressed, p);
 }
 
+void		ft_apply_texture(t_player *p, int count, int start, int end, int *tmp)
+{
+	int		id;
+	int		d;
+	double	wall;
+	t_point	tex;
+
+	id = p->tab[p->map_pos.y * p->tab_len + p->map_pos.x].id - 1;
+	wall = p->collide_side == 'n' ? p->ray_pos.y + p->ray_len * p->ray_dir.y :
+		p->ray_pos.x + p->ray_len * p->ray_dir.x;
+	wall -= floor((wall));
+	tex.x = (int)(wall * (double)p->mlx.texture[id].width);
+	if (p->collide_side == 'n' && p->ray_dir.x > 0)
+		tex.x = p->mlx.texture[id].width - tex.x - 1;
+	if (p->collide_side == 'y' && p->ray_dir.x < 0)
+		tex.x = p->mlx.texture[id].width - tex.x - 1;
+	while (start < end)
+	{
+		d = start * 256 - W_HEIGHT * 128 + (int)(W_HEIGHT / p->ray_len) * 128;
+		tex.y = ((d * p->mlx.texture[id].height) /
+			(int)(W_HEIGHT / p->ray_len)) / 256;
+		p->mlx.data[start * W_WIDTH + count] = tmp[p->mlx.texture[id].height *
+			tex.y + tex.x];
+		start++;
+	}
+}
+
 int			ft_draw(t_player *p)
 {
-	int	count;
-	int	start;
-	int	end;
+	t_point	pt;
+	int		count;
+	int		*tmp;
 
 	count = 0;
 	ft_clear_image(p);
@@ -213,12 +251,14 @@ int			ft_draw(t_player *p)
 		ft_calc_dist_side(p);
 		ft_check_collide(p);
 		ft_calc_wall_dist(p);
-		start = -(W_HEIGHT / p->ray_len) / 2 + W_HEIGHT / 2;
-		start = start < 0 ? 0 : start;
-		end = (W_HEIGHT / p->ray_len) / 2 + W_HEIGHT / 2;
-		end = end >= W_HEIGHT ? W_HEIGHT - 1 : end;
-		ft_set_color(p);
-		ft_trace_vline(count, start, end, p);
+		pt.x = -(W_HEIGHT / p->ray_len) / 2 + W_HEIGHT / 2;
+		pt.x = pt.x < 0 ? 0 : pt.x;
+		pt.y = (W_HEIGHT / p->ray_len) / 2 + W_HEIGHT / 2;
+		pt.y = pt.y >= W_HEIGHT ? W_HEIGHT - 1 : pt.y;
+		tmp = (int *)mlx_get_data_addr(p->mlx.texture[p->tab[p->map_pos.y *
+			p->tab_len + p->map_pos.x].id - 1].tex,
+			&p->mlx.bpp, &p->mlx.size_line, &p->mlx.endian);
+		ft_apply_texture(p, count, pt.x, pt.y, tmp);
 		count++;
 	}
 	mlx_put_image_to_window(p->mlx.ptr, p->mlx.win, p->mlx.img, 0, 0);

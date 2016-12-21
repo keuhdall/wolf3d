@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:19:41 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/20 18:17:52 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/21 04:06:41 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct	s_meta
 	int			bpp;
 	int			size_line;
 	int			endian;
-	t_tex		texture;
+	t_tex		texture[10];
 }				t_meta;
 
 typedef struct	s_camera
