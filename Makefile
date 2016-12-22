@@ -12,11 +12,14 @@
 
 NAME = wolf3d
 
-SRC = wolf3d.c \
+SRC = controls_keyboard.c \
+	  controls_mouse.c \
+	  draw.c \
+	  floor.c \
 	  reader.c \
 	  tools.c \
-	  controls_keyboard.c \
-	  controls_mouse.c \
+	  walls.c \
+	  wolf3d.c \
 
 OBJ = $(SRC:.c=.o)
 
