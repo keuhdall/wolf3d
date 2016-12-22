@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:19:41 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/21 04:06:41 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/22 20:18:01 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct	s_player
 	t_point		p_dir_sign;
 	t_dpoint	dist_side; // Length between the player and the first edge of a map square
 	t_dpoint	diff_side; // Next length between 2 axis
+	t_dpoint	floor;
 	double		ray_len; // Length of a ray (between player and a wall)
 	char		collide;
 	char		collide_side;
@@ -93,5 +94,8 @@ void			ft_move(int keycode, t_player *p);
 void			ft_strafe(int keycode, t_player *p);
 t_point			*ft_init_tab(char *name, int *err, int *len);
 t_dpoint		ft_search_id(t_point *tab, int len, int id);
+int				*ft_set_tmp(t_player *p);
+void			ft_apply_texture(t_player *p, int count, t_point pt, int *tmp);
+void			ft_calc_wall_dist(t_player *p);
 
 #endif
