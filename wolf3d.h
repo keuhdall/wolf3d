@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:19:41 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/22 20:18:01 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/24 01:54:11 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,80 +22,94 @@
 # define W_WIDTH 800
 # define W_HEIGHT 600
 
-typedef struct	s_point
+typedef struct			s_point
 {
-	int			x;
-	int			y;
-	int			id;
-}				t_point;
+	int					x;
+	int					y;
+	int					id;
+}						t_point;
 
-typedef struct	s_dpoint
+typedef struct			s_dpoint
 {
-	double		x;
-	double		y;
-}				t_dpoint;
+	double				x;
+	double				y;
+}						t_dpoint;
 
-typedef struct	s_tex
+typedef struct			s_key
 {
-	void		*tex;
-	int			*data;
-	int			width;
-	int			height;
+	int					keycode;
+	char				state;
+}						t_key;
 
-}				t_tex;
-
-typedef struct	s_meta
+typedef struct			s_key_list
 {
-	void		*ptr;
-	void		*win;
-	void		*img;
-	int			*data;
-	int			bpp;
-	int			size_line;
-	int			endian;
-	t_tex		texture[10];
-}				t_meta;
+	t_key				key;
+	struct s_key_list	*next;
+}						t_key_list;
 
-typedef struct	s_camera
+typedef struct			s_tex
 {
-	double		pos_x;
-	t_dpoint	screen;
-}				t_camera;
+	void				*tex;
+	int					*data;
+	int					width;
+	int					height;
+}						t_tex;
 
-typedef struct	s_player
+typedef struct			s_meta
 {
-	t_point		*tab;
-	int			tab_len;
-	t_meta		mlx;
-	t_camera	c;
-	t_dpoint	pos;
-	t_point		map_pos;
-	t_dpoint	ray_pos;
-	t_dpoint	ray_dir;
-	t_dpoint	p_dir; //Dir
-	t_point		p_dir_sign;
-	t_dpoint	dist_side; // Length between the player and the first edge of a map square
-	t_dpoint	diff_side; // Next length between 2 axis
-	t_dpoint	floor;
-	double		ray_len; // Length of a ray (between player and a wall)
-	char		collide;
-	char		collide_side;
-	int			color;
-	int			key_pressed;
-}				t_player;
+	void				*ptr;
+	void				*win;
+	void				*img;
+	int					*data;
+	int					bpp;
+	int					size_line;
+	int					endian;
+	t_tex				texture[10];
+}						t_meta;
 
-int				ft_get_len(t_point *tab);
-void			ft_init_struct(t_player *p, t_point *tab, int tab_len);
-void			ft_clear_image(t_player *p);
-int				ft_draw(t_player *p);
-int				ft_manage_keyboard(int keycode, t_player *p);
-int				ft_rotate(int x, int y, t_player *p);
-void			ft_move(int keycode, t_player *p);
-void			ft_strafe(int keycode, t_player *p);
-t_point			*ft_init_tab(char *name, int *err, int *len);
-t_dpoint		ft_search_id(t_point *tab, int len, int id);
-int				*ft_set_tmp(t_player *p);
-void			ft_apply_texture(t_player *p, int count, t_point pt, int *tmp);
-void			ft_calc_wall_dist(t_player *p);
+typedef struct			s_camera
+{
+	double				pos_x;
+	t_dpoint			screen;
+}						t_camera;
+
+typedef struct			s_player
+{
+	t_key_list			*key_list;
+	t_point				*tab;
+	int					tab_len;
+	t_meta				mlx;
+	t_camera			c;
+	t_dpoint			pos;
+	t_point				map_pos;
+	t_dpoint			ray_pos;
+	t_dpoint			ray_dir;
+	t_dpoint			p_dir; //Dir
+	t_point				p_dir_sign;
+	t_dpoint			dist_side; // Length between the player and the first edge of a map square
+	t_dpoint			diff_side; // Next length between 2 axis
+	t_dpoint			floor;
+	double				ray_len; // Length of a ray (between player and a wall)
+	char				collide;
+	char				collide_side;
+	int					color;
+}						t_player;
+
+int						ft_get_len(t_point *tab);
+void					ft_init_struct(t_player *p, t_point *tab, int tab_len);
+void					ft_clear_image(t_player *p);
+int						ft_draw(t_player *p);
+int						ft_rotate(int x, int y, t_player *p);
+void					ft_move(t_player *p);
+void					ft_strafe(t_player *p);
+t_point					*ft_init_tab(char *name, int *err, int *len);
+t_dpoint				ft_search_id(t_point *tab, int len, int id);
+int						*ft_set_tmp(t_player *p);
+void					ft_apply_texture(t_player *p, int count, t_point pt,
+						int *tmp);
+void					ft_calc_wall_dist(t_player *p);
+void					ft_parse_keys_press(t_player *p, int keycode);
+void					ft_parse_keys_release(t_player *p, int keycode);
+char					ft_search_key(t_player *p, int keycode);
 
 #endif

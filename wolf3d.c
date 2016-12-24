@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 16:42:26 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/21 15:56:45 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/24 01:58:47 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 int		ft_key_pressed(int keycode, t_player *p)
 {
-	p->key_pressed = keycode;
+	ft_parse_keys_press(p, keycode);
 	return (0);
 }
 
 int		ft_key_released(int keycode, t_player *p)
 {
-	if (p->key_pressed == keycode)
-		p->key_pressed = -1;
+	ft_parse_keys_release(p, keycode);
 	return (0);
 }
 

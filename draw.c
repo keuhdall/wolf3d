@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 20:33:59 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/22 20:37:38 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/24 02:01:31 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	ft_handle_movement(t_player *p)
 {
-	if (p->key_pressed == 53)
+	if(ft_search_key(p, 53))
 		exit(1);
-	ft_move(p->key_pressed, p);
-	ft_strafe(p->key_pressed, p);
+	ft_move(p);
+	ft_strafe(p);
 }
 
 void	ft_reset_values(t_player *p, int count)
