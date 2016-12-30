@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 19:36:05 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/24 01:53:56 by                  ###   ########.fr       */
+/*   Updated: 2016/12/30 18:12:44 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,50 @@
 
 void	ft_move(t_player *p)
 {
+	int	s;
+
+	s = ft_search_key(p, 257) ? SPEED / 3 : SPEED;
 	if (ft_search_key(p, 13))
 	{
 		if (p->tab[(int)p->pos.y * p->tab_len +
-			(int)(p->pos.x + p->p_dir.x / 20)].id <= 0)
-			p->pos.x += p->p_dir.x / 20;
-		if (p->tab[(int)(p->pos.y + p->p_dir.y / 20) *
+			(int)(p->pos.x + p->p_dir.x / s)].id <= 0)
+			p->pos.x += p->p_dir.x / s;
+		if (p->tab[(int)(p->pos.y + p->p_dir.y / s) *
 			p->tab_len + (int)p->pos.x].id <= 0)
-			p->pos.y += p->p_dir.y / 20;
+			p->pos.y += p->p_dir.y / s;
 	}
 	if (ft_search_key(p, 1))
 	{
 		if (p->tab[(int)p->pos.y * p->tab_len +
-			(int)(p->pos.x + p->p_dir.x / 20)].id <= 0)
-			p->pos.x -= p->p_dir.x / 20;
-		if (p->tab[(int)(p->pos.y + p->p_dir.y / 20) *
+			(int)(p->pos.x + p->p_dir.x / s)].id <= 0)
+			p->pos.x -= p->p_dir.x / s;
+		if (p->tab[(int)(p->pos.y + p->p_dir.y / s) *
 			p->tab_len + (int)p->pos.x].id <= 0)
-			p->pos.y -= p->p_dir.y / 20;
+			p->pos.y -= p->p_dir.y / s;
 	}
 }
 
 void	ft_strafe(t_player *p)
 {
+	int	s;
+
+	s = ft_search_key(p, 257) ? SPEED / 3 : SPEED;
 	if (ft_search_key(p, 0))
 	{
-		if (p->tab[(int)(p->pos.y + p->p_dir.x / 20) *
+		if (p->tab[(int)(p->pos.y + p->p_dir.x / s) *
 			p->tab_len + (int)p->pos.x].id <= 0)
 		{
-			p->pos.x -= p->p_dir.y / 20;
-			p->pos.y += p->p_dir.x / 20;
+			p->pos.x -= p->p_dir.y / s;
+			p->pos.y += p->p_dir.x / s;
 		}
 	}
 	if (ft_search_key(p, 2))
 	{
-		if (p->tab[(int)(p->pos.y + p->p_dir.x / 20) *
+		if (p->tab[(int)(p->pos.y + p->p_dir.x / s) *
 			p->tab_len + (int)p->pos.x].id <= 0)
 		{
-			p->pos.x += p->p_dir.y / 20;
-			p->pos.y -= p->p_dir.x / 20;
+			p->pos.x += p->p_dir.y / s;
+			p->pos.y -= p->p_dir.x / s;
 		}
 	}
 }

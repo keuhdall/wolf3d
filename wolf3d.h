@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:19:41 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/24 01:54:11 by                  ###   ########.fr       */
+/*   Updated: 2016/12/30 18:06:31 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 # define W_WIDTH 800
 # define W_HEIGHT 600
+# define SPEED 20
 
 typedef struct			s_point
 {
@@ -88,6 +89,7 @@ typedef struct			s_player
 	t_point				p_dir_sign;
 	t_dpoint			dist_side; // Length between the player and the first edge of a map square
 	t_dpoint			diff_side; // Next length between 2 axis
+	t_dpoint			floor_wall;
 	t_dpoint			floor;
 	double				ray_len; // Length of a ray (between player and a wall)
 	char				collide;
@@ -111,5 +113,8 @@ void					ft_calc_wall_dist(t_player *p);
 void					ft_parse_keys_press(t_player *p, int keycode);
 void					ft_parse_keys_release(t_player *p, int keycode);
 char					ft_search_key(t_player *p, int keycode);
+void					ft_set_floor(t_player *p);
+void					ft_set_floor_to_buffer(t_player *p, int count,
+						t_point pt);
 
 #endif
