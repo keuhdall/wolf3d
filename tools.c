@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/24 01:54:36 by                  ###   ########.fr       */
+/*   Updated: 2016/12/31 16:40:01 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ void		ft_load_textures(t_player *p)
 	p->mlx.texture[2].tex = mlx_xpm_file_to_image(p->mlx.ptr,
 		"./textures/wood.xpm",
 		&p->mlx.texture[2].width, &p->mlx.texture[2].height);
+	p->mlx.texture[3].tex = mlx_xpm_file_to_image(p->mlx.ptr,
+		"./textures/lmarques.xpm",
+		&p->mlx.texture[3].width, &p->mlx.texture[3].height);
 }
 
 void		ft_init_struct(t_player *p, t_point *tab, int tab_len)
