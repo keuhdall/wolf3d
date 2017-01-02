@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:19:41 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/31 16:37:50 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/02 17:39:51 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,11 @@ typedef struct			s_player
 	t_dpoint			dist_side; // Length between the player and the first edge of a map square
 	t_dpoint			diff_side; // Next length between 2 axis
 	t_dpoint			floor_wall;
-	t_dpoint			floor;
 	double				ray_len; // Length of a ray (between player and a wall)
 	char				collide;
 	char				collide_side;
 	int					color;
+	double				wall;
 }						t_player;
 
 int						ft_get_len(t_point *tab);
