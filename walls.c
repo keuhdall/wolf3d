@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 20:10:49 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/22 20:16:16 by lmarques         ###   ########.fr       */
+/*   Updated: 2016/12/31 16:42:58 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int		*ft_set_tmp(t_player *p)
 	int	*tmp;
 
 	id = p->tab[p->map_pos.y * p->tab_len + p->map_pos.x].id - 1;
-	id = id < 0 ? 0 : id;
-	id = id > 2 ? 2 : id;
+	id = id < MIN_TEX ? MIN_TEX : id;
+	id = id > MAX_TEX ? MAX_TEX : id;
 	tmp = (int *)mlx_get_data_addr(p->mlx.texture[id].tex, &p->mlx.bpp,
 		&p->mlx.size_line, &p->mlx.endian);
 	return (tmp);
@@ -33,8 +33,8 @@ void	ft_apply_texture(t_player *p, int count, t_point pt, int *tmp)
 	t_point	tex;
 
 	id = p->tab[p->map_pos.y * p->tab_len + p->map_pos.x].id - 1;
-	id = id < 0 ? 0 : id;
-	id = id > 2 ? 2 : id;
+	id = id < MIN_TEX ? MIN_TEX : id;
+	id = id > MAX_TEX ? MAX_TEX : id;
 	wall = p->collide_side == 'n' ? p->ray_pos.y + p->ray_len * p->ray_dir.y :
 		p->ray_pos.x + p->ray_len * p->ray_dir.x;
 	wall -= floor((wall));
