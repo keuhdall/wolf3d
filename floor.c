@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 20:38:56 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/02 17:36:55 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/02 18:26:00 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_set_floor_to_buffer(t_player *p, int count, t_point pt)
 	int			*tmp;
 	double		distWall, distPlayer, currentDist;
 	t_point		tex_floor;
-	//t_point		tex_ceiling;
+	t_point		tex_ceiling;
 	t_dpoint	floor;
 
 	distWall = p->ray_len;
@@ -61,10 +61,10 @@ void	ft_set_floor_to_buffer(t_player *p, int count, t_point pt)
 		tex_floor.y = ((int)(floor.y * p->mlx.texture[0].height)) %
 		p->mlx.texture[0].height;
 		
-		//tex_ceiling.x = (int)(floor.x * p->mlx.texture[1].width) %
-		//p->mlx.texture[1].width;
-		//tex_ceiling.y = (int)(floor.y * p->mlx.texture[1].height) %
-		//p->mlx.texture[1].height;
+		tex_ceiling.x = (int)(floor.x * p->mlx.texture[1].width) %
+		p->mlx.texture[1].width;
+		tex_ceiling.y = (int)(floor.y * p->mlx.texture[1].height) %
+		p->mlx.texture[1].height;
 		
 
 		tmp = (int *)mlx_get_data_addr(p->mlx.texture[0].tex,
@@ -74,10 +74,10 @@ void	ft_set_floor_to_buffer(t_player *p, int count, t_point pt)
 		(tmp[tex_floor.y * p->mlx.texture[0].width + tex_floor.x] >> 1)
 		& 8355711;
 
-		//tmp = (int *)mlx_get_data_addr(p->mlx.texture[1].tex,
-		//&p->mlx.bpp, &p->mlx.size_line, &p->mlx.endian);
+		tmp = (int *)mlx_get_data_addr(p->mlx.texture[1].tex,
+		&p->mlx.bpp, &p->mlx.size_line, &p->mlx.endian);
 
-		//p->mlx.data[(W_HEIGHT - y) * W_WIDTH + count] =
-		//tmp[p->mlx.texture[1].width * tex_ceiling.y + tex_ceiling.x];
+		p->mlx.data[(W_HEIGHT - pt.y) * W_WIDTH + count] =
+		tmp[p->mlx.texture[1].width * tex_ceiling.y + tex_ceiling.x];
 	}
 }
