@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 20:33:59 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/31 05:14:14 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/02 16:36:18 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_handle_movement(t_player *p)
 {
-	if(ft_search_key(p, 53))
+	if (ft_search_key(p, 53))
 		exit(1);
 	ft_move(p);
 	ft_strafe(p);

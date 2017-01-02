@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 20:38:56 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/30 18:46:22 by                  ###   ########.fr       */
+/*   Updated: 2017/01/02 17:14:41 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ void	ft_set_floor(t_player *p)
 		p->floor_wall.y = p->map_pos.y + 1.0;
 	}
 }
-/*
+
 void	ft_set_floor_to_buffer(t_player *p, int count, t_point pt)
 {
+	ft_set_floor(p);
 	int			*tmp;
 	double		distWall, distPlayer, currentDist;
 	t_point		tex_floor;
@@ -47,7 +48,6 @@ void	ft_set_floor_to_buffer(t_player *p, int count, t_point pt)
 	distWall = p->ray_len;
 	distPlayer = 0.0;
 	pt.y = pt.y < 0 ? W_HEIGHT : pt.y;
-	ft_set_floor(p);
 	while (++pt.y < W_HEIGHT)
 	{
 		currentDist = W_HEIGHT / (2.0 * pt.y - W_HEIGHT);
@@ -79,35 +79,5 @@ void	ft_set_floor_to_buffer(t_player *p, int count, t_point pt)
 
 		//p->mlx.data[(W_HEIGHT - y) * W_WIDTH + count] =
 		//tmp[p->mlx.texture[1].width * tex_ceiling.y + tex_ceiling.x];
-	}
-}
-*/
-
-void	ft_set_floor_to_buffer(t_player *p, int count, t_point pt)
-{
-	double distWall, distPlayer, currentDist;
-
-	//int	*tmp = (int *)mlx_get_data_addr(p->mlx.texture[2].tex,
-	//&p->mlx.bpp, &p->mlx.size_line, &p->mlx.endian);
-	distWall = p->ray_len;
-	distPlayer = 0.0;
-
-	if (pt.y < 0)
-		pt.y = W_HEIGHT; //becomes < 0 when the integer overflows
-
-	for (int y = pt.y + 1; y < W_HEIGHT; y++)
-	{
-		currentDist = W_HEIGHT / (2.0 * y - W_HEIGHT); //you could make a small lookup table for this instead
-		double weight = (currentDist - distPlayer) / (distWall - distPlayer);
-		double currentFloorX = weight * p->floor_wall.x + (1.0 - weight) * p->pos.x;
-		double currentFloorY = weight * p->floor_wall.y + (1.0 - weight) * p->pos.y;
-		int floorTexX, floorTexY;
-		floorTexX = (int)(currentFloorX * p->mlx.texture[2].width) % p->mlx.texture[2].width;
-		floorTexY = (int)(currentFloorY * p->mlx.texture[2].height) % p->mlx.texture[2].height;
-		//buffer[y][x] = (texture[3][texWidth * floorTexY + floorTexX] >> 1) & 8355711;
-		p->mlx.data[y * W_WIDTH + count] = 0x0000FF;
-		//tmp[p->mlx.texture[2].width * floorTexY + floorTexX];
-		//(tmp[p->mlx.texture[2].width * floorTexY + floorTexX] >> 1) & 8355711;
-		//buffer[h - y][x] = texture[6][texWidth * floorTexY + floorTexX];
 	}
 }
