@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 20:33:59 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/24 02:01:31 by                  ###   ########.fr       */
+/*   Updated: 2016/12/31 05:14:14 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ int		ft_draw(t_player *p)
 	int		count;
 	int		*tmp;
 
-	count = 0;
+	count = -1;
 	ft_clear_image(p);
 	ft_handle_movement(p);
-	while (count < W_WIDTH)
+	while (++count < W_WIDTH)
 	{
 		ft_reset_values(p, count);
 		ft_calc_dist_side(p);
@@ -99,7 +99,7 @@ int		ft_draw(t_player *p)
 		pt.y = pt.y >= W_HEIGHT ? W_HEIGHT - 1 : pt.y;
 		tmp = ft_set_tmp(p);
 		ft_apply_texture(p, count, pt, tmp);
-		count++;
+		ft_set_floor_to_buffer(p, count, pt);
 	}
 	mlx_put_image_to_window(p->mlx.ptr, p->mlx.win, p->mlx.img, 0, 0);
 	return (0);
