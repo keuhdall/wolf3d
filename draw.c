@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 20:33:59 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/02 16:36:18 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/03 16:40:06 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_reset_values(t_player *p, int count)
 	p->map_pos.y = (int)p->ray_pos.y;
 	p->diff_side.x = sqrt(1 + pow(p->ray_dir.y, 2) / pow(p->ray_dir.x, 2));
 	p->diff_side.y = sqrt(1 + pow(p->ray_dir.x, 2) / pow(p->ray_dir.y, 2));
-	p->collide = 'n';
+	p->found_wall = 'n';
 }
 
 void	ft_calc_dist_side(t_player *p)
@@ -59,22 +59,22 @@ void	ft_calc_dist_side(t_player *p)
 
 void	ft_check_collide(t_player *p)
 {
-	while (p->collide == 'n')
+	while (p->found_wall == 'n')
 	{
 		if (p->dist_side.x < p->dist_side.y)
 		{
 			p->dist_side.x += p->diff_side.x;
 			p->map_pos.x += p->p_dir_sign.x;
-			p->collide_side = 'n';
+			p->found_wall_side = 'n';
 		}
 		else
 		{
 			p->dist_side.y += p->diff_side.y;
 			p->map_pos.y += p->p_dir_sign.y;
-			p->collide_side = 'y';
+			p->found_wall_side = 'y';
 		}
 		if (p->tab[p->map_pos.y * p->tab_len + p->map_pos.x].id > 0)
-			p->collide = 'y';
+			p->found_wall = 'y';
 	}
 }
 
