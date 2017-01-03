@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/31 16:40:01 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/03 17:11:55 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,14 @@ t_dpoint	ft_search_id(t_point *tab, int len, int id)
 	{
 		if (tab[count].id == id)
 		{
-			ret.x = (double)tab[count].x + 1;
-			ret.y = (double)tab[count].y + 1;
+			ret.x = (double)tab[count].x + 0.5;
+			ret.y = (double)tab[count].y + 0.5;
 			return (ret);
 		}
 		count++;
 	}
 	ft_putendl("error : could not find the given ID in the map");
-	ret.x = -1;
-	ret.y = -1;
+	exit(1);
 	return (ret);
 }
 
@@ -69,14 +68,15 @@ void		ft_init_struct(t_player *p, t_point *tab, int tab_len)
 		&p->mlx.size_line, &p->mlx.endian);
 	ft_load_textures(p);
 	p->pos = ft_search_id(tab, tab_len, -1);
+	printf("pos.x = %f; pos.y = %f\n", p->pos.x, p->pos.y);
 	p->tab_len = ft_get_len(tab);
 	p->tab = tab;
 	p->p_dir.x = -1;
 	p->p_dir.y = 0;
 	p->c.screen.x = 0;
 	p->c.screen.y = 0.66;
-	p->collide = 'n';
-	p->collide_side = 'n';
+	p->found_wall = 'n';
+	p->found_wall_side = 'n';
 	p->key_list = NULL;
 }
 
