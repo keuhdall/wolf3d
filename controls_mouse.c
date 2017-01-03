@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 03:54:38 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/20 19:41:14 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/03 18:52:29 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	ft_rotate(int x, int y, t_player *p)
 	p->c.screen.y = x > old_x ? old_screen_x * sin(-0.05) + p->c.screen.y *
 	cos(-0.05) : old_screen_x * sin(0.05) + p->c.screen.y * cos(0.05);
 	old_x = x + (y - y);
-	mlx_clear_window(p->mlx.ptr, p->mlx.win);
 	ft_clear_image(p);
 	ft_draw(p);
 	mlx_put_image_to_window(p->mlx.ptr, p->mlx.win, p->mlx.img, 0, 0);
