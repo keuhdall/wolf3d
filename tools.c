@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/04 02:00:53 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/04 02:57:26 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,29 @@ t_dpoint	ft_search_id(t_point *tab, int len, int id)
 void		ft_load_textures(t_player *p)
 {
 	p->mlx.texture[0].tex = mlx_xpm_file_to_image(p->mlx.ptr,
-		"./textures/mossy.xpm",
+		"./textures/lmarques.xpm",
 		&p->mlx.texture[0].width, &p->mlx.texture[0].height);
 	p->mlx.texture[1].tex = mlx_xpm_file_to_image(p->mlx.ptr,
-		"./textures/redbrick.xpm",
+		"./textures/mossy.xpm",
 		&p->mlx.texture[1].width, &p->mlx.texture[1].height);
 	p->mlx.texture[2].tex = mlx_xpm_file_to_image(p->mlx.ptr,
 		"./textures/wood.xpm",
 		&p->mlx.texture[2].width, &p->mlx.texture[2].height);
 	p->mlx.texture[3].tex = mlx_xpm_file_to_image(p->mlx.ptr,
-		"./textures/lmarques.xpm",
+		"./textures/redbrick.xpm",
 		&p->mlx.texture[3].width, &p->mlx.texture[3].height);
+	p->mlx.texture[4].tex = mlx_xpm_file_to_image(p->mlx.ptr,
+		"./textures/bluestone.xpm",
+		&p->mlx.texture[4].width, &p->mlx.texture[4].height);
+	p->mlx.texture[5].tex = mlx_xpm_file_to_image(p->mlx.ptr,
+		"./textures/colorstone.xpm",
+		&p->mlx.texture[5].width, &p->mlx.texture[5].height);
+	p->mlx.texture[6].tex = mlx_xpm_file_to_image(p->mlx.ptr,
+		"./textures/eagle.xpm",
+		&p->mlx.texture[6].width, &p->mlx.texture[6].height);
+	p->mlx.texture[7].tex = mlx_xpm_file_to_image(p->mlx.ptr,
+		"./textures/greystone.xpm",
+		&p->mlx.texture[7].width, &p->mlx.texture[7].height);
 }
 
 void		ft_init_struct(t_player *p, t_point *tab, int tab_len)
