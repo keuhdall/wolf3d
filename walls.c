@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 20:10:49 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/03 16:27:29 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/04 02:09:10 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_apply_texture(t_player *p, int count, t_point pt, int *tmp)
 	tex.x = (int)(p->wall * (double)p->mlx.texture[id].width);
 	if (p->found_wall_side == 'n' && p->ray_dir.x > 0)
 		tex.x = p->mlx.texture[id].width - tex.x - 1;
-	if (p->found_wall_side == 'y' && p->ray_dir.x < 0)
+	if (p->found_wall_side == 'y' && p->ray_dir.y < 0)
 		tex.x = p->mlx.texture[id].width - tex.x - 1;
 	while (pt.x < pt.y)
 	{
