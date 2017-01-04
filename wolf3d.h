@@ -6,14 +6,13 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:19:41 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/04 02:57:44 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/04 17:14:18 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLF3D_H
 # define WOLF3D_H
 
-# include <stdio.h> // ATTENTION !!
 # include <math.h>
 # include "./minilibx/mlx.h"
 # include "./libft/libft.h"
@@ -90,12 +89,12 @@ typedef struct			s_player
 	t_point				map_pos;
 	t_dpoint			ray_pos;
 	t_dpoint			ray_dir;
-	t_dpoint			p_dir; //Dir
+	t_dpoint			p_dir;
 	t_point				p_dir_sign;
-	t_dpoint			dist_side; // Length between the player and the first edge of a map square
-	t_dpoint			diff_side; // Next length between 2 axis
+	t_dpoint			dist_side;
+	t_dpoint			diff_side;
 	t_dpoint			floor_wall;
-	double				ray_len; // Length of a ray (between player and a wall)
+	double				ray_len;
 	char				found_wall;
 	char				found_wall_side;
 	int					color;
