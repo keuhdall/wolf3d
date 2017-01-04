@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 20:38:56 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/03 18:31:38 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/04 02:14:36 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		ft_set_floor(t_player *p)
 		p->floor_wall.x = p->map_pos.x + 1.0;
 		p->floor_wall.y = p->map_pos.y + p->wall;
 	}
-	else if (p->found_wall_side == 'y' && p->ray_dir.x > 0)
+	else if (p->found_wall_side == 'y' && p->ray_dir.y > 0)
 	{
 		p->floor_wall.x = p->map_pos.x + p->wall;
 		p->floor_wall.y = p->map_pos.y;
