@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 20:38:56 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/04 02:14:36 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/04 02:45:38 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void		ft_set_floor(t_player *p)
 void		ft_set_textures(t_player *p, t_point *tex_floor,
 			t_point *tex_ceiling, t_dpoint *floor)
 {
-	tex_floor->x = ((int)(floor->x * p->mlx.texture[0].width)) %
-	p->mlx.texture[0].width;
-	tex_floor->y = ((int)(floor->y * p->mlx.texture[0].height)) %
-	p->mlx.texture[0].height;
-	tex_ceiling->x = (int)(floor->x * p->mlx.texture[1].width) %
-	p->mlx.texture[1].width;
-	tex_ceiling->y = (int)(floor->y * p->mlx.texture[1].height) %
-	p->mlx.texture[1].height;
+	tex_floor->x = ((int)(floor->x * p->mlx.texture[FLOOR_TEX].width)) %
+	p->mlx.texture[FLOOR_TEX].width;
+	tex_floor->y = ((int)(floor->y * p->mlx.texture[FLOOR_TEX].height)) %
+	p->mlx.texture[FLOOR_TEX].height;
+	tex_ceiling->x = (int)(floor->x * p->mlx.texture[CEILING_TEX].width) %
+	p->mlx.texture[CEILING_TEX].width;
+	tex_ceiling->y = (int)(floor->y * p->mlx.texture[CEILING_TEX].height) %
+	p->mlx.texture[CEILING_TEX].height;
 }
 
 void		ft_set_floor_to_buffer(t_player *p, int count, t_point pt)
@@ -65,14 +65,14 @@ void		ft_set_floor_to_buffer(t_player *p, int count, t_point pt)
 		floor.x = weight * p->floor_wall.x + (1.0 - weight) * p->pos.x;
 		floor.y = weight * p->floor_wall.y + (1.0 - weight) * p->pos.y;
 		ft_set_textures(p, &tex_floor, &tex_ceiling, &floor);
-		tmp = (int *)mlx_get_data_addr(p->mlx.texture[0].tex,
+		tmp = (int *)mlx_get_data_addr(p->mlx.texture[FLOOR_TEX].tex,
 		&p->mlx.bpp, &p->mlx.size_line, &p->mlx.endian);
 		p->mlx.data[pt.y * W_WIDTH + count] =
-		(tmp[tex_floor.y * p->mlx.texture[0].width + tex_floor.x] >> 1)
+		(tmp[tex_floor.y * p->mlx.texture[FLOOR_TEX].width + tex_floor.x] >> 1)
 		& 8355711;
-		tmp = (int *)mlx_get_data_addr(p->mlx.texture[1].tex,
+		tmp = (int *)mlx_get_data_addr(p->mlx.texture[CEILING_TEX].tex,
 		&p->mlx.bpp, &p->mlx.size_line, &p->mlx.endian);
 		p->mlx.data[(W_HEIGHT - pt.y) * W_WIDTH + count] =
-		tmp[p->mlx.texture[1].width * tex_ceiling.y + tex_ceiling.x];
+		tmp[p->mlx.texture[CEILING_TEX].width * tex_ceiling.y + tex_ceiling.x];
 	}
 }

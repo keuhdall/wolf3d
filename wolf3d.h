@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:19:41 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/03 16:25:01 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/04 02:57:44 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@
 # define W_WIDTH 800
 # define W_HEIGHT 600
 # define MIN_TEX 0
-# define MAX_TEX 3
+# define MAX_TEX 7
+# define DEFAULT_TEX 0
+# define FLOOR_TEX 1
+# define CEILING_TEX 2
 # define SPEED 20
 
 typedef struct			s_point
