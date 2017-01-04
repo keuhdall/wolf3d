@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/04 02:57:26 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/04 17:48:50 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void		ft_clear_image(t_player *p)
 	int	count;
 
 	count = 0;
-	while (count < 800 * 600)
+	while (count < W_WIDTH * W_HEIGHT)
 	{
 		p->mlx.data[count] = 0;
 		count++;
