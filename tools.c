@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 21:37:15 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/05 00:31:22 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/05 17:44:25 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void		ft_init_struct(t_player *p, t_point *tab, int tab_len)
 	p->tab_len = ft_get_len(tab);
 	p->pos = ft_search_id(tab, tab_len, -1);
 	p->tab = tab;
+	ft_check_map(p, tab_len);
 	p->p_dir.x = -1;
 	p->p_dir.y = 0;
 	p->c.screen.x = 0;

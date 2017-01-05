@@ -12,7 +12,8 @@
 
 NAME = wolf3d
 
-SRC = controls_keyboard.c \
+SRC = checker.c \
+	  controls_keyboard.c \
 	  controls_mouse.c \
 	  draw.c \
 	  floor.c \

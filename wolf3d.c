@@ -6,26 +6,11 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 16:42:26 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/05 00:26:35 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/05 17:17:05 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
-
-void	ft_check_textures(t_player *p)
-{
-	int	count;
-
-	count = -1;
-	while (++count <= MAX_TEX)
-	{
-		if (!p->mlx.texture[count].tex)
-		{
-			ft_putendl("Error loading textures");
-			exit(1);
-		}
-	}
-}
 
 int		ft_key_pressed(int keycode, t_player *p)
 {

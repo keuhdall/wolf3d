@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:19:41 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/05 00:28:52 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/05 17:43:02 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,6 @@ void					ft_set_floor(t_player *p);
 void					ft_set_floor_to_buffer(t_player *p, int count,
 						t_point pt);
 void					ft_check_textures(t_player *p);
+void					ft_check_map(t_player *p, int len);
 
 #endif
