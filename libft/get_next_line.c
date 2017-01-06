@@ -6,85 +6,116 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/29 23:22:24 by lmarques          #+#    #+#             */
-/*   Updated: 2016/11/21 15:41:39 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/06 15:05:11 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-t_data	*ft_manage_fd(t_data **tmp, int fd)
+static int	ft_check_buff_2(char **line, char **content, int i)
 {
-	while (*tmp && (*tmp)->fd != fd)
-		tmp = &(*tmp)->next;
-	if (!*tmp)
-	{
-		*tmp = (t_data *)malloc(sizeof(**tmp));
-		(*tmp)->fd = fd;
-		(*tmp)->content = NULL;
-		(*tmp)->next = NULL;
-	}
-	return (*tmp);
+	char	*dup;
+	char	*tmp2;
+
+	tmp2 = ft_strsub(*content, 0, i);
+	*line = ft_strjoin(*line, tmp2);
+	free(tmp2);
+	dup = ft_strdup(*content + i + 1);
+	free(*content);
+	*content = dup;
+	return (1);
 }
 
-int		ft_parse_content(char **line, t_data *tmp)
+int			ft_check_buff(char **line, char **content)
 {
-	char	*temp;
+	int		i;
+	char	*tmp;
+	char	*tmp2;
 
-	if (!tmp->content)
+	if (!*content)
 		return (0);
-	if ((temp = ft_strchr(tmp->content, '\n')))
-	{
-		*line = ft_strjoin(*line, ft_strsub(tmp->content, 0, temp -
-			tmp->content));
-		tmp->content = ft_strdup(tmp->content + (temp - tmp->content) + 1);
-		return (1);
-	}
+	i = ft_strlen(*content);
+	if ((tmp = ft_strchr(*content, '\n')))
+		return (ft_check_buff_2(line, content, tmp - *content));
 	else
 	{
-		*line = ft_strjoin(*line, tmp->content);
-		ft_strdel(&(tmp->content));
+		tmp2 = *line;
+		*line = ft_strjoin(*line, *content);
+		free(tmp2);
+		ft_strdel(content);
 	}
 	return (0);
 }
 
-int		ft_read(char **line, t_data *current)
+static int	ft_reader_2(char **line, t_lst *lst, char *buff)
+{
+	char	*tmp;
+	char	*tmp2;
+	int		i;
+
+	if ((tmp = ft_strchr(buff, '\n')))
+	{
+		i = tmp - buff;
+		tmp2 = ft_strsub(buff, 0, i);
+		tmp = *line;
+		*line = ft_strjoin(*line, tmp2);
+		free(tmp2);
+		free(tmp);
+		lst->content = ft_strdup(buff + i + 1);
+		return (1);
+	}
+	else
+	{
+		tmp2 = *line;
+		*line = ft_strjoin(*line, buff);
+		free(tmp2);
+	}
+	return (0);
+}
+
+int			ft_reader(char **line, t_lst *lst)
 {
 	int		ret;
-	char	buffer[BUFF_SIZE + 1];
-	char	*tmp;
+	char	buff[BUFF_SIZE + 1];
 
-	while ((ret = read(current->fd, buffer, BUFF_SIZE)))
+	while ((ret = read(lst->fd, buff, BUFF_SIZE)))
 	{
 		if (ret == -1)
-			return (-1);
-		buffer[ret] = '\0';
-		if ((tmp = ft_strchr(buffer, '\n')))
-		{
-			*line = ft_strjoin(*line, ft_strsub(buffer, 0, tmp - buffer));
-			current->content = ft_strdup(buffer + (tmp - buffer) + 1);
+			return (ret);
+		buff[ret] = '\0';
+		if (ft_reader_2(line, lst, (char *)buff))
 			return (1);
-		}
-		else
-			*line = ft_strjoin(*line, buffer);
 	}
 	if (ret == 0 && **line == '\0')
 		return (0);
-	return (1);
+	else
+		return (1);
 }
 
-int		get_next_line(int const fd, char **line)
+int			get_next_line(int const fd, char **line)
 {
-	static t_data	*tmp = NULL;
-	t_data			*current;
-	char			test;
+	static t_lst	*begin_list = NULL;
+	t_lst			*lst;
+	char			tmp;
 
-	if (!line || fd < 0 || read(fd, &test, 0) != 0)
+	if (!line || read(fd, &tmp, 0) == -1 || fd < 0)
 		return (-1);
 	if (*line)
 		*line = NULL;
 	*line = ft_strdup("");
-	current = ft_manage_fd(&tmp, fd);
-	if (ft_parse_content(line, current))
+	lst = begin_list;
+	while (lst && lst->fd != fd)
+		lst = lst->next;
+	if (!lst)
+	{
+		ft_lst_push_back_gnl(&begin_list, fd);
+		lst = begin_list;
+		while (lst && lst->fd != fd)
+			lst = lst->next;
+	}
+	else if (ft_check_buff(line, &(lst->content)))
 		return (1);
-	return (ft_read(line, current));
+	if (!begin_list)
+		begin_list = lst;
+	return (ft_reader(line, lst));
 }
