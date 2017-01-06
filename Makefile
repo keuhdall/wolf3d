@@ -6,7 +6,7 @@
 #*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        *#
 #*                                                +#+#+#+#+#+   +#+           *#
 #*   Created: 2016/11/10 23:15:25 by lmarques          #+#    #+#             *#
-#*   Updated: 2016/12/24 01:04:52 by lmarques         ###   ########.fr       *#
+#*   Updated: 2017/01/06 21:16:29 by lmarques         ###   ########.fr       *#
 #*                                                                            *#
 #* ************************************************************************** *#
 
@@ -19,6 +19,7 @@ SRC = checker.c \
 	  floor.c \
 	  key_list.c \
 	  reader.c \
+	  reader2.c \
 	  tools.c \
 	  walls.c \
 	  wolf3d.c \

@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:04:23 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/06 20:41:28 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/06 21:14:18 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,14 @@ t_list	*ft_create_map(char *name, int *len, int *e)
 t_point	*ft_init_tab(char *name, int *len, int *err)
 {
 	t_point	count;
-	int		count_tab;
-	t_list	*tmp;
 	t_point	*tab;
+	t_list	*tmp;
+	t_list	*begin;
 
-	count_tab = 0;
+	count.id = 0;
 	count.y = 0;
 	tmp = ft_create_map(name, len, err);
+	begin = tmp;
 	if (!(tab = (t_point *)malloc(sizeof(t_point) * *len * ft_lstsize(tmp))))
 		tab = NULL;
 	while (tmp)
@@ -109,14 +110,13 @@ t_point	*ft_init_tab(char *name, int *len, int *err)
 		count.x = -1;
 		while (++count.x < *len)
 		{
-			tab[count_tab].x = count.x;
-			tab[count_tab].y = count.y;
-			tab[count_tab].id = ((int *)(tmp->content))[count.x];
-			count_tab++;
+			ft_set_val(&tab[count.id], count, ((int *)(tmp->content))[count.x]);
+			count.id++;
 		}
 		tmp = tmp->next;
 		count.y++;
 	}
+	ft_free_list(&begin);
 	*len *= count.y;
 	return (tab);
 }
