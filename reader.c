@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:04:23 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/06 21:14:18 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/07 00:25:22 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,33 +63,29 @@ int		*ft_create_tab(char **tmp, int *err)
 	return (tab);
 }
 
+
 t_list	*ft_create_map(char *name, int *len, int *e)
 {
 	t_list	*map;
-	int		ret;
-	int		fd;
+	t_point	p;
 	char	*ln;
+	char	**tmp;
 
 	map = NULL;
-	fd = open(name, O_RDONLY);
 	ln = NULL;
-	ret = get_next_line(fd, &ln);
-	*e = ret == -1 ? -1 : 0;
-	if (ret < 0)
+	p.y = open(name, O_RDONLY);
+	p.x = get_next_line(p.y, &ln);
+	*e = p.x == -1 ? -1 : 0;
+	if (p.x < 0)
 		return (NULL);
-	ft_lst_push_back(&map, ft_lstnew(ft_create_tab(
-		ft_strsplit(ft_epur_str(ln), ' '), e),
-		ft_count_elem(ft_strsplit(ft_epur_str(ln), ' ')) * sizeof(int)));
-	*len = ft_count_elem(ft_strsplit(ft_epur_str(ln), ' '));
-	while ((ret = get_next_line(fd, &ln)))
-	{
-		ft_lst_push_back(&map, ft_lstnew(ft_create_tab(
-			ft_strsplit(ft_epur_str(ln), ' '), e),
-			ft_count_elem(ft_strsplit(ft_epur_str(ln), ' ')) * sizeof(int)));
-		*e = ft_count_elem(ft_strsplit(ft_epur_str(ln), ' ')) != *len ? -1 : *e;
-	}
-	*e = (!map || !ln || len == 0 || ret == -1 || *e == -1) ? -1 : 0;
-	return ((!map || !ln || len == 0 || ret == -1) ? NULL : map);
+	tmp = ft_strsplit(ft_epur_str(ln), ' ');
+	ft_lst_push_back(&map, ft_lstnew(ft_create_tab(ft_strsplit(
+		ft_epur_str(ln), ' '), e), ft_count_elem(tmp) * sizeof(int)));
+	ft_free_split(tmp);
+	*len = ft_count_elem(tmp);
+	ft_parse_line(&map, &p, &ln, e, len);
+	*e = (!map || !ln || len == 0 || p.x == -1 || *e == -1) ? -1 : 0;
+	return ((!map || !ln || len == 0 || p.x == -1) ? NULL : map);
 }
 
 t_point	*ft_init_tab(char *name, int *len, int *err)

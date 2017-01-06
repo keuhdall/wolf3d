@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:19:41 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/06 21:13:58 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/07 00:25:18 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,10 @@ void					ft_check_textures(t_player *p);
 void					ft_check_map(t_player *p, int len);
 void					ft_free_list(t_list **lst);
 void					ft_set_val(t_point *tab, t_point count, int id);
+void					ft_free_split(char **str);
+int						*ft_create_tab(char **tmp, int *err);
+int						ft_count_elem(char **tab);
+void					ft_parse_line(t_list **map, t_point *p, char **ln,
+						int *e, int *len);
 
 #endif
