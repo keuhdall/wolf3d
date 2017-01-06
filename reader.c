@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:04:23 by lmarques          #+#    #+#             */
-/*   Updated: 2016/12/07 16:19:37 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/06 20:41:28 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ int		*ft_create_tab(char **tmp, int *err)
 		tab[count2] = ft_atoi(tmp[count2]);
 		count2++;
 	}
+	count2 = -1;
+	while (++count2 < count)
+		free(tmp[count2]);
+	free(tmp);
 	return (tab);
 }
 
