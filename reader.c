@@ -6,12 +6,11 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:04:23 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/07 19:11:00 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/07 19:18:15 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
-#include <stdio.h>
 
 int		ft_count_elem(char **tab)
 {
