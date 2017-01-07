@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:04:23 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/07 16:43:54 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/07 19:11:00 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ t_list	*ft_create_map(char *name, int *len, int *e)
 	p.y = open(name, O_RDONLY);
 	ft_init_values(&map, &p, &tmp2, &ln);
 	*e = p.x == -1 ? -1 : 0;
-	if (p.x < 0)
-		return (NULL);
+	ft_check_fd(p.x);
 	ft_split_and_push(&ln, e, &tmp, &tmp2);
 	ft_lst_push_back(&map, ft_lstnew(tmp2, ft_count_elem(tmp) * sizeof(int)));
 	*len = ft_count_elem(tmp);
@@ -92,6 +91,7 @@ t_list	*ft_create_map(char *name, int *len, int *e)
 		*e = ft_count_elem(tmp) != *len ? -1 : *e;
 		ft_free(&tmp, &ln, &tmp2);
 	}
+	free(ln);
 	*e = (!map || !ln || len == 0 || p.x == -1 || *e == -1) ? -1 : 0;
 	return ((!map || !ln || len == 0 || p.x == -1) ? NULL : map);
 }

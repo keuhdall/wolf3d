@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:19:41 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/07 16:26:49 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/07 19:09:55 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,6 @@ void					ft_split_and_push(char **ln, int *e, char ***tmp,
 void					ft_free(char ***tmp, char **ln, int **tmp2);
 void					ft_init_values(t_list **map, t_point *p, int **tmp2,
 						char **ln);
+void					ft_check_fd(int fd);
 
 #endif
