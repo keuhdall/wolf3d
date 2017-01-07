@@ -6,12 +6,11 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/30 23:12:09 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/07 18:25:46 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/07 19:23:23 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 
 static char	*ft_strdupi(char const *s, char c)
 {
