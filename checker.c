@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 17:16:15 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/07 19:34:27 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/07 19:50:38 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		ft_check_map_sides(t_player *p, int len)
 	count = p->tab_len;
 	while (count < len)
 	{
-		if (!p->tab[count].id || !p->tab[count - 1].id)
+		if (p->tab[count].id <= 0 || p->tab[count - 1].id <= 0)
 			return (1);
 		count += p->tab_len;
 	}
@@ -62,13 +62,13 @@ void	ft_check_map(t_player *p, int len)
 	err = 0;
 	while (++count < p->tab_len)
 	{
-		if (!p->tab[count].id)
+		if (p->tab[count].id <= 0)
 			err = 1;
 	}
 	count = p->tab_len * ft_get_height(p, len) - 2;
 	while (++count < len)
 	{
-		if (!p->tab[count].id)
+		if (p->tab[count].id <= 0)
 			err = 1;
 	}
 	if (ft_check_map_sides(p, len) || err || len == 1)
