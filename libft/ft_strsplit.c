@@ -6,83 +6,73 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/30 23:12:09 by lmarques          #+#    #+#             */
-/*   Updated: 2016/09/20 14:45:57 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/07 18:25:46 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_nbwords(char const *str, char c)
-{
-	int	count_str;
-	int	count_words;
 
-	count_str = 0;
-	count_words = 0;
-	while (str[count_str])
+static char	*ft_strdupi(char const *s, char c)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	while (s[i] && s[i] != c)
+		i++;
+	str = (char *)malloc(sizeof(char) * (i + 1));
+	if (str)
 	{
-		if (str[count_str] != c && (count_str == 0 ||
-			str[count_str - 1] == c))
-			count_words++;
-		count_str++;
-	}
-	return (count_words);
-}
-
-static int	ft_lenwords(char const *str, char c)
-{
-	int	count;
-
-	count = 0;
-	while (str[count] && str[count] != c)
-		count++;
-	return (count);
-}
-
-static char	*ft_copystr(char const *str, char c)
-{
-	int		count;
-	char	*str2;
-
-	count = 0;
-	str2 = NULL;
-	str2 = (char *)malloc(sizeof(str2) * (ft_lenwords(str, c)) + 1);
-	if (str2)
-	{
-		while (str[count] && str[count] != c)
+		str[i--] = '\0';
+		while (i >= 0)
 		{
-			str2[count] = str[count];
-			count++;
+			str[i] = s[i];
+			i--;
 		}
-		str2[count] = '\0';
 	}
-	return (str2);
+	return (str);
+}
+
+static int	ft_len_words(char const *s, char c)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = 0;
+	while (s[i])
+	{
+		if ((i == 0 && s[i] != c) || (s[i] != c && s[i - 1] == c))
+			len++;
+		i++;
+	}
+	return (len);
 }
 
 char		**ft_strsplit(char const *s, char c)
 {
-	int		count_s;
-	int		count_str;
+	int		i;
 	char	**str;
+	int		j;
 
-	count_s = 0;
-	count_str = 0;
 	str = NULL;
-	if (!s)
-		return (NULL);
-	str = (char **)malloc(sizeof(str) * (ft_nbwords(s, c)) + 1);
-	if (str)
+	if (!(s))
+		return (str);
+	str = (char **)malloc(sizeof(char *) * (ft_len_words(s, c) + 1));
+	i = 0;
+	j = 0;
+	if (!(str))
+		return (str);
+	while (s[i])
 	{
-		while (s[count_s])
+		if ((i == 0 && s[i] != c) || (s[i] != c && s[i - 1] == c))
 		{
-			if (s[count_s] != c && (count_s == 0 || s[count_s - 1] == c))
-			{
-				str[count_str] = ft_copystr(&s[count_s], c);
-				count_str++;
-			}
-			count_s++;
+			str[j] = ft_strdupi((s + i), c);
+			j++;
 		}
-		str[count_str] = NULL;
+		i++;
 	}
+	str[j] = NULL;
 	return (str);
 }
