@@ -6,13 +6,13 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/29 23:38:03 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/06 15:03:29 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/07 19:12:38 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 32
+# define BUFF_SIZE 1
 
 # include "./libft.h"
 # include <fcntl.h>
