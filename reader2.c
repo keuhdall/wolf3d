@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 21:01:02 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/07 03:33:51 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/07 16:21:42 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,19 @@ void	ft_free_split(char **str)
 	free(str);
 }
 
-void	ft_split_and_push(t_list **map, char ***tmp, char **ln, int *e)
+void	ft_free(char ***tmp, char **ln, int **tmp2)
+{
+	ft_free_split(*tmp);
+	free(*ln);
+	free(*tmp2);
+}
+
+void	ft_split_and_push(char **ln, int *e, char ***tmp, int **tmp3)
 {
 	char	*tmp2;
 
 	tmp2 = ft_epur_str(*ln);
 	*tmp = ft_strsplit(tmp2, ' ');
-	ft_lst_push_back(map, ft_lstnew(ft_create_tab(ft_strsplit(
-		tmp2, ' '), e), ft_count_elem(*tmp) * sizeof(int)));
+	*tmp3 = ft_create_tab(ft_strsplit(tmp2, ' '), e);
 	free(tmp2);
 }

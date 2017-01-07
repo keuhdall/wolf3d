@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:19:41 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/07 01:07:01 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/07 16:26:49 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,10 @@ void					ft_set_val(t_point *tab, t_point count, int id);
 void					ft_free_split(char **str);
 int						*ft_create_tab(char **tmp, int *err);
 int						ft_count_elem(char **tab);
-void					ft_split_and_push(t_list **map, char ***tmp, char **ln,
-						int *e);
+void					ft_split_and_push(char **ln, int *e, char ***tmp,
+						int **tmp3);
+void					ft_free(char ***tmp, char **ln, int **tmp2);
+void					ft_init_values(t_list **map, t_point *p, int **tmp2,
+						char **ln);
 
 #endif

@@ -20,6 +20,7 @@ SRC = checker.c \
 	  key_list.c \
 	  reader.c \
 	  reader2.c \
+	  reader3.c \
 	  tools.c \
 	  walls.c \
 	  wolf3d.c \
