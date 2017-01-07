@@ -6,7 +6,7 @@
 /*   By: lmarques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 17:16:15 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/05 17:52:25 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/07 19:34:27 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_check_map(t_player *p, int len)
 		if (!p->tab[count].id)
 			err = 1;
 	}
-	if (ft_check_map_sides(p, len) || err)
+	if (ft_check_map_sides(p, len) || err || len == 1)
 	{
 		ft_putendl("Error : invalid map");
 		exit(1);
