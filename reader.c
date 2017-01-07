@@ -6,7 +6,7 @@
 /*   By: lmarques <lmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:04:23 by lmarques          #+#    #+#             */
-/*   Updated: 2017/01/07 01:06:59 by lmarques         ###   ########.fr       */
+/*   Updated: 2017/01/07 15:09:39 by lmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,12 @@ int		*ft_create_tab(char **tmp, int *err)
 		tab[count2] = ft_atoi(tmp[count2]);
 		count2++;
 	}
-	count2 = -1;
-	while (++count2 < count)
+	count2 = 0;
+	while (tmp[count2])
+	{
 		free(tmp[count2]);
+		count2++;
+	}
 	free(tmp);
 	return (tab);
 }
@@ -78,13 +81,15 @@ t_list	*ft_create_map(char *name, int *len, int *e)
 	if (p.x < 0)
 		return (NULL);
 	ft_split_and_push(&map, &tmp, &ln, e);
-	ft_free_split(tmp);
 	*len = ft_count_elem(tmp);
+	ft_free_split(tmp);
+	free(ln);
 	while ((p.x = get_next_line(p.y, &ln)))
 	{
 		ft_split_and_push(&map, &tmp, &ln, e);
 		*e = ft_count_elem(tmp) != *len ? -1 : *e;
 		ft_free_split(tmp);
+		free(ln);
 	}
 	*e = (!map || !ln || len == 0 || p.x == -1 || *e == -1) ? -1 : 0;
 	return ((!map || !ln || len == 0 || p.x == -1) ? NULL : map);
@@ -99,8 +104,8 @@ t_point	*ft_init_tab(char *name, int *len, int *err)
 
 	count.id = 0;
 	count.y = 0;
-	tmp = ft_create_map(name, len, err);
-	begin = tmp;
+	begin = ft_create_map(name, len, err);
+	tmp = begin;
 	if (!(tab = (t_point *)malloc(sizeof(t_point) * *len * ft_lstsize(tmp))))
 		tab = NULL;
 	while (tmp)
